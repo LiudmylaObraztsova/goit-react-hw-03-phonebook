@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import s from './ContactList.module.css';
+import style from './ContactList.module.css';
 import ContactItem from './ContactItem';
 
 const ContactList = ({ contacts, onDeleteContact }) => (
   <ol>
     {contacts.map(({ name, number, id }) => (
-      <li key={id} className={s.listItem}>
+      <li key={id} className={style.listItem}>
         <ContactItem
           name={name}
           number={number}

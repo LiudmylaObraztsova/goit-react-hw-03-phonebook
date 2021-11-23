@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import s from './ContactForm.module.css';
+import style from './ContactForm.module.css';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+
 class ContactForm extends Component {
   state = {
     name: '',
@@ -29,7 +32,7 @@ class ContactForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className={s.formGroup}>
+        <div className={style.formGroup}>
           <label>
             Name{' '}
             <input
@@ -57,9 +60,9 @@ class ContactForm extends Component {
           </label>
         </div>
 
-        <button type="submit" className={s.button}>
+        <Button type="submit" variant="contained" startIcon={<AddIcon />}>
           Add contact
-        </button>
+        </Button>
       </form>
     );
   }

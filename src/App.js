@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
-import initialContacts from './data/contacts.json';
+// import initialContacts from './data/contacts.json';
 import { v4 as uuidv4 } from 'uuid';
 import Filter from './components/Filter';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
     filter: '',
   };
 
@@ -31,8 +31,8 @@ class App extends Component {
       notifyWarn();
     } else {
       const addContact = {
-        ...newContact,
         id: this.contactId,
+        ...newContact,
       };
       notifySuccess();
 
@@ -64,7 +64,30 @@ class App extends Component {
     );
   };
 
+  componentDidMount() {
+    console.log('App componentDidMount');
+
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+
+    console.log(parsedContacts);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+
+    if (this.state.contacts !== prevState.contacts) {
+      console.log('Update');
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
+    console.log('App render');
+
     const { filter } = this.state;
 
     const visibleContacts = this.getVisibleContacts();
