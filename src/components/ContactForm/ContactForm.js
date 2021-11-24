@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+//add
+import { v4 as uuidv4 } from 'uuid';
+
 import style from './ContactForm.module.css';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -15,16 +18,23 @@ class ContactForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
 
-    this.props.onSubmit(this.state);
+    this.props.onSubmit({
+      id: uuidv4(),
+      name: this.state.name,
+      number: this.state.number,
+    });
 
     this.reset();
   };
 
   reset = () => {
-    this.setState({ name: '', number: '' });
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   render() {
@@ -36,12 +46,13 @@ class ContactForm extends Component {
           <label>
             Name{' '}
             <input
+              id={uuidv4()}
               type="text"
               name="name"
               value={name}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
+              required={true}
               onChange={this.handleInputOnChange}
             />
           </label>
@@ -49,12 +60,13 @@ class ContactForm extends Component {
           <label>
             Number{' '}
             <input
+              id={uuidv4()}
               type="tel"
               name="number"
               value={number}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
+              required={true}
               onChange={this.handleInputOnChange}
             />
           </label>
