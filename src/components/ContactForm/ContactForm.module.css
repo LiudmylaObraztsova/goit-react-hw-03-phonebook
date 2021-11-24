@@ -15,7 +15,7 @@ form {
 .formGroup input,
 .form-group label {
   display: block;
-  width: 100%;
+  width: auto;
 }
 
 .formGroup input {
